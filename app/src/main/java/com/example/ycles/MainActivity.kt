@@ -96,6 +96,25 @@ fun DemoScreen(modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
+        Spacer(Modifier.height(24.dp))
+        Button(onClick = {
+            val x = xInput.replace(',', '.').toDoubleOrNull()
+            val eps = epsilonInput.replace(',', '.').toDoubleOrNull()
+            result = when {
+                xInput.isBlank() -> "Введите x!"
+                x == null -> "x — некорректное число"
+                x == 0.0 -> "x не должно быть равно 0"
+                epsilonInput.isBlank() -> "Введите epsilon!"
+                eps == null -> "epsilon — некорректное число"
+                eps <= 0.0 -> "epsilon должно быть > 0"
+                else -> {
+                    val (s, last, iter) = computeSeries(x, eps)
+                    "Сумма: $s\nПоследнее слагаемое: $last\nКоличество повторений: $iter"
+                }
+            }
+        }) {
+            Text("ОК", fontSize = 18.sp)
+        }
     }
 }
 fun computeSeries(x: Double, epsilon: Double = 1e-6): Triple<Double, Double, Int> {
