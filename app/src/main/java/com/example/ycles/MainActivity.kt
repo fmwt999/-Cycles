@@ -45,7 +45,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DemoScreen(modifier: Modifier = Modifier) {
-    var input by remember { mutableStateOf("") }
+    var xInput by remember { mutableStateOf("2.0") }
+    var epsilonInput by remember { mutableStateOf("0.000001") }
     var result by remember { mutableStateOf("") }
 
     Column(
@@ -70,9 +71,29 @@ fun DemoScreen(modifier: Modifier = Modifier) {
         )
         Spacer(Modifier.height(8.dp))
         OutlinedTextField(
-            value = input,
-            onValueChange = { newValue -> input = newValue },
+            value = xInput,
+            onValueChange = { newValue -> xInput = newValue },
             singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(12.dp))
+        Text(
+            text = "Введите epsilon",
+            fontSize = 18.sp
+        )
+        Spacer(Modifier.height(8.dp))
+        OutlinedTextField(
+            value = epsilonInput,
+            onValueChange = { newValue -> epsilonInput = newValue },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(24.dp))
+        Text(
+            text = result,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
     }
