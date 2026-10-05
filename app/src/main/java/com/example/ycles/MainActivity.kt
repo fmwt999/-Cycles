@@ -117,6 +117,7 @@ fun DemoScreen(modifier: Modifier = Modifier) {
         }
     }
 }
+
 fun computeSeries(x: Double, epsilon: Double = 1e-6): Triple<Double, Double, Int> {
     var sum = 0.0
     var lastTerm = 0.0
@@ -133,11 +134,13 @@ fun computeSeries(x: Double, epsilon: Double = 1e-6): Triple<Double, Double, Int
             lastTerm = signedTerm
             break
         }
+
         sum += signedTerm
         lastTerm = signedTerm
         iterations++
         n++
     }
+
     return Triple(sum, lastTerm, iterations)
 }
 
