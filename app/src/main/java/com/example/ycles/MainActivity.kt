@@ -26,6 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.abs
+import kotlin.math.pow
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +76,29 @@ fun DemoScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth()
         )
     }
+}
+fun computeSeries(x: Double, epsilon: Double = 1e-6): Triple<Double, Double, Int> {
+    var sum = 0.0
+    var lastTerm = 0.0
+    var iterations = 0
+
+    var n = 0
+    while (true) {
+        val power = 2 * n + 1
+        val denominator = power * x.pow(power)
+        val term = 1.0 / denominator
+        val signedTerm = if (n % 2 == 0) term else -term
+
+        if (abs(signedTerm) < epsilon) {
+            lastTerm = signedTerm
+            break
+        }
+        sum += signedTerm
+        lastTerm = signedTerm
+        iterations++
+        n++
+    }
+    return Triple(sum, lastTerm, iterations)
 }
 
 @Preview(showBackground = true)
